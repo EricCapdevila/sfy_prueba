@@ -69,6 +69,12 @@ class DataHandler(
         return ratesToApply
     }
 
+
+    /*
+    return a list of lists of rates, they are all connected, one list has rates that only have the "to" we need
+    and another lists contains the conversion of the "froms" in that first list, now used as "to"s. We repeat the
+    process until we reach a rate that has the "from"we need.
+     */
     private fun getConversionSteps(from : String, to : String) : List<List<Rate>>{
         val steps = mutableListOf<List<Rate>>()
         val listOfFroms = mutableListOf<String>()
@@ -79,6 +85,9 @@ class DataHandler(
         return steps
     }
 
+    /*
+    get all the rates that have the "to"s and then store their "froms" for the next step, to use them as "to"s
+     */
     private fun getStep(to : List<String>, fromsToUpdate : MutableList<String>) : List<Rate>{
         val step  = ArrayList<Rate>()
         fromsToUpdate.clear()
