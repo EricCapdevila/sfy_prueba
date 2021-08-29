@@ -9,8 +9,8 @@ import retrofit2.http.GET;
 interface TransactionsServices {
 
     @GET("/rates")
-    fun getRates(): Call<List<Rate>?>?
+    fun getRates(): Call<List<Rate>>
 
     @GET("/transactions")
-    fun getTransactions(): Call<List<Transaction>?>?
+    fun getTransactions(): Call<List<Transaction>>
 }
