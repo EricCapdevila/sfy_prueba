@@ -1,5 +1,6 @@
 package com.example.international_business_men.view_model
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.international_business_men.repository.Repository
@@ -8,16 +9,62 @@ import com.example.international_business_men.repository.models.Transaction
 
 class TransactionsViewModel(val repository: Repository) : ViewModel(){
 
-    private lateinit var ratesObserver : Observer<List<Rate>?>
-    private lateinit var transactionsObserver : Observer<List<Transaction>?>
+    lateinit var dataHandler : MutableLiveData<DataHandler>
+    lateinit var errorHandler : MutableLiveData<ErrorHandler>
+
+    private lateinit var ratesObserver : Observer<List<Rate>>
+    private lateinit var transactionsObserver : Observer<List<Transaction>>
+    private lateinit var errorObserver : Observer<Throwable>
 
 
     init{
         repository.run{
             getRates()
-            rates.observeForever(ratesObserver)
             getTransactions()
-            transactions.observeForever(transactionsObserver)
+            observeRestData()
+        }
+    }
+
+
+    private fun observeRestData(){
+        ratesObserver = ratesObserverLambda()
+        repository.rates.observeForever(ratesObserver)
+
+        transactionsObserver = transactionsObserverLambda()
+        repository.transactions.observeForever(transactionsObserver)
+
+        errorObserver = errorObserverLambda()
+        repository.error.observeForever(errorObserver)
+    }
+
+    private val  ratesObserverLambda : () -> Observer<List<Rate>> = {
+        Observer {
+            repository.rates.value = it
+            checkAndSetDataHandler()
+        }
+    }
+
+    private val  transactionsObserverLambda : () -> Observer<List<Transaction>> = {
+        Observer {
+            repository.transactions.value = it
+            checkAndSetDataHandler()
+        }
+    }
+
+    private val  errorObserverLambda : () -> Observer<Throwable> = {
+        Observer {
+            repository.error.value = it
+            errorHandler.value = ErrorHandler(it)
+        }
+    }
+
+    private val checkAndSetDataHandler = {
+        repository.run{
+            transactions.value?.let{ transactions ->
+                rates.value?.let{ rates ->
+                    dataHandler.value = DataHandler(transactions, rates)
+                }
+            }
         }
     }
 
@@ -30,6 +77,7 @@ class TransactionsViewModel(val repository: Repository) : ViewModel(){
         repository.run{
             rates.removeObserver(ratesObserver)
             transactions.removeObserver(transactionsObserver)
+            error.removeObserver(errorObserver)
         }
     }
 

@@ -9,7 +9,6 @@ import com.example.international_business_men.repository.models.Rate
 import com.example.international_business_men.repository.models.Transaction
 import com.example.international_business_men.utils.Constants.BASE_URL
 import com.example.international_business_men.utils.Constants.SERVICE_LOGS
-import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,21 +22,20 @@ class Repository() {
 
     lateinit var rates : MutableLiveData<List<Rate>>
     lateinit var transactions : MutableLiveData<List<Transaction>>
+    lateinit var error : MutableLiveData<Throwable>
 
     init {
-
         val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         transactionsServices = retrofit.create(TransactionsServices::class.java)
-
     }
 
     fun getRates(){
         transactionsServices.getRates()?.enqueue(object : Callback<List<Rate>?> {
             override fun onFailure(call: Call<List<Rate>?>, t: Throwable) {
-                showErrorInLog(t.message)
+                error.postValue(t)
             }
             override fun onResponse(call: Call<List<Rate>?>, response: Response<List<Rate>?>) {
               response.body()?.let{ rates.postValue(it)} ?: Log.d(SERVICE_LOGS, "onResponse:  body is " + response.body())
@@ -48,7 +46,7 @@ class Repository() {
     fun getTransactions(){
         transactionsServices.getTransactions()?.enqueue(object : Callback<List<Transaction>?> {
             override fun onFailure(call: Call<List<Transaction>?>, t: Throwable) {
-                showErrorInLog(t.message)
+                error.postValue(t)
             }
 
             override fun onResponse(call: Call<List<Transaction>?>, response: Response<List<Transaction>?>) {
@@ -58,10 +56,5 @@ class Repository() {
         })
     }
 
-    fun showErrorInLog(message : String?){
-        var error = "No message to display"
-        message?.let{ error = it}
-        Log.d(SERVICE_LOGS, "onFailure: $error")
-    }
 }
 
