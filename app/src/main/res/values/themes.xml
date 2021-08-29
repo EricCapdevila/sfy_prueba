@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.International_business_men" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorPrimaryVariant">@color/olive</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,22 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="regular_text" parent="TextAppearance.AppCompat.Medium">
+        <item name="color">@color/gray</item>
+        <item name="android:textSize">@dimen/regular_text_size</item>
+    </style>
+
+    <style name="bigger_text" parent="regular_text">
+        <item name="android:textSize">@dimen/bigger_text_size</item>
+    </style>
+
+    <style name="text_button_background" parent="regular_text">
+        <item name="android:background">@drawable/recycler_item_outer_blue</item>
+    </style>
+
+    <style name="text_background" parent="regular_text">
+        <item name="android:background">@drawable/recycler_item_inner_blue</item>
     </style>
 </resources>
