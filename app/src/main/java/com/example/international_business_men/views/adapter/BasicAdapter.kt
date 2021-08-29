@@ -11,7 +11,7 @@ class BasicAdapter(val onClick : ((id : String) -> Unit)?, val data : List<Strin
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return BasicViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_standard_item, parent, false), context)
+            .inflate(R.layout.recycler_standard_item, parent, false))
     }
 
     override fun getItemCount(): Int {

@@ -10,13 +10,6 @@ import retrofit2.Response
 
 class ErrorHandler (private val errorModel : ErrorModel) {
 
-    private var errorCode : String
-    private var message : String
-
-    init {
-        message = getErrorMessage()
-        errorCode = findErrorCode()
-    }
 
     private fun findErrorCode() : String {
        errorModel.t?.let{

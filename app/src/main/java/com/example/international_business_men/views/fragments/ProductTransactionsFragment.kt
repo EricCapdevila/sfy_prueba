@@ -45,7 +45,6 @@ class ProductTransactionsFragment : Fragment(){
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        enableBackNavigation()
         setUpRecycler()
         setUpSum()
     }
@@ -63,9 +62,20 @@ class ProductTransactionsFragment : Fragment(){
         }
     }
 
-    private fun enableBackNavigation(){
+    override fun onResume() {
+        super.onResume()
+        enableBackNavigation(true)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        enableBackNavigation(false)
+    }
+
+    private fun enableBackNavigation(on : Boolean){
         if(activity is ActivityManager) {
-            (activity as ActivityManager).showToolbar(getProduct())
+            if (on) (activity as ActivityManager).showToolbar(getProduct())
+            else (activity as ActivityManager).hideToolbar()
         }
     }
 

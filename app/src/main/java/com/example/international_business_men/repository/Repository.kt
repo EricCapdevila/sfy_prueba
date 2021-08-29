@@ -14,22 +14,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Repository() {
 
-    private var transactionsServices : TransactionsServices
-    private var retrofit : Retrofit
+    private lateinit var transactionsServices : TransactionsServices
+    private lateinit var retrofit : Retrofit
 
-    lateinit var rates : MutableLiveData<List<Rate>>
-    lateinit var transactions : MutableLiveData<List<Transaction>>
-    lateinit var error : MutableLiveData<ErrorModel>
+    var rates  = MutableLiveData<List<Rate>>()
+    var transactions = MutableLiveData<List<Transaction>>()
+    var error = MutableLiveData<ErrorModel>()
 
     init {
+        setUpRetrofit()
+    }
+
+    private fun setUpRetrofit(){
         retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(OkHttpClient.Builder().addInterceptor { chain ->
-                    val request: Request =
-                        chain.request().newBuilder().addHeader("Accept", "application/json ").build()
-                    chain.proceed(request)
-                }.build()).build()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(OkHttpClient.Builder().addInterceptor { chain ->
+                val request: Request =
+                    chain.request().newBuilder().addHeader("Accept", "application/json ").build()
+                chain.proceed(request)
+            }.build()).build()
         transactionsServices = retrofit.create(TransactionsServices::class.java)
     }
 
@@ -39,7 +43,7 @@ class Repository() {
                 error.postValue(ErrorModel(t, null))
             }
             override fun onResponse(call: Call<List<Rate>>, response: Response<List<Rate>>) {
-              response.body()?.let{ rates.postValue(it) }
+              response.body()?.let{ rates.value = it }
                   ?: error.postValue(ErrorModel(null, response.errorBody()))
             }
         })
@@ -52,7 +56,7 @@ class Repository() {
             }
 
             override fun onResponse(call: Call<List<Transaction>>, response: Response<List<Transaction>>) {
-                response.body()?.let { transactions.postValue(it)}
+                response.body()?.let { transactions.value = it}
                     ?: error.postValue(ErrorModel(null, response.errorBody()))
             }
         })

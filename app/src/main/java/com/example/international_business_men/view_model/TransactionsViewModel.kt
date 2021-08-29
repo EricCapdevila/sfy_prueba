@@ -10,22 +10,21 @@ import com.example.international_business_men.repository.models.Transaction
 
 class TransactionsViewModel(val repository: Repository) : ViewModel(){
 
-    lateinit var dataHandler : MutableLiveData<DataHandler>
-    lateinit var errorHandler : MutableLiveData<ErrorHandler>
+    var dataHandler = MutableLiveData<DataHandler>()
+    var errorHandler = MutableLiveData<ErrorHandler>()
 
     private lateinit var ratesObserver : Observer<List<Rate>>
     private lateinit var transactionsObserver : Observer<List<Transaction>>
     private lateinit var errorObserver : Observer<ErrorModel>
 
 
-    init{
+    fun getData(){
         repository.run{
             getRates()
             getTransactions()
             observeRestData()
         }
     }
-
 
     private fun observeRestData(){
         ratesObserver = ratesObserverLambda()
@@ -40,6 +39,7 @@ class TransactionsViewModel(val repository: Repository) : ViewModel(){
 
     private val  ratesObserverLambda : () -> Observer<List<Rate>> = {
         Observer {
+            repository.rates.removeObserver(ratesObserver)
             repository.rates.value = it
             checkAndSetDataHandler()
         }
@@ -47,6 +47,7 @@ class TransactionsViewModel(val repository: Repository) : ViewModel(){
 
     private val  transactionsObserverLambda : () -> Observer<List<Transaction>> = {
         Observer {
+            repository.transactions.removeObserver(transactionsObserver)
             repository.transactions.value = it
             checkAndSetDataHandler()
         }
@@ -63,6 +64,7 @@ class TransactionsViewModel(val repository: Repository) : ViewModel(){
         repository.run{
             transactions.value?.let{ transactions ->
                 rates.value?.let{ rates ->
+                    clearObservers()
                     dataHandler.value = DataHandler(transactions, rates)
                 }
             }

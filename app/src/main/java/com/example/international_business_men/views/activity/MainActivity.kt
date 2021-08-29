@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.international_business_men.databinding.ActivityMainBinding
+import com.example.international_business_men.repository.Repository
 import com.example.international_business_men.utils.Constants.ERROR_FRAGMENT
 import com.example.international_business_men.utils.Constants.PRODUCTS_FRAGMENT
 import com.example.international_business_men.utils.Constants.PRODUCT_TRANSACTIONS_FRAGMENT
 import com.example.international_business_men.view_model.DataHandler
 import com.example.international_business_men.view_model.ErrorHandler
+import com.example.international_business_men.view_model.Factory
 import com.example.international_business_men.view_model.TransactionsViewModel
 import com.example.international_business_men.views.fragments.ErrorFragment
 import com.example.international_business_men.views.fragments.ProductTransactionsFragment
@@ -30,10 +32,11 @@ class MainActivity : AppCompatActivity(), ActivityManager {
         setUpViewModel()
         setUpToolbar()
         setUpObservers()
+        viewModel.getData()
     }
 
     private fun setUpViewModel(){
-        viewModel = ViewModelProvider(this).get(TransactionsViewModel::class.java)
+        viewModel = ViewModelProvider(this, Factory(Repository())).get(TransactionsViewModel::class.java)
     }
 
     private fun setUpToolbar(){
