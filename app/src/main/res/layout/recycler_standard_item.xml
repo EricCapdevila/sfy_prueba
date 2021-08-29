@@ -8,6 +8,7 @@
     android:padding="@dimen/standard_layout_margin">
 
     <TextView
+        android:id="@+id/recycler_item_standard_item_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

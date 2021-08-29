@@ -11,9 +11,10 @@
         android:id="@+id/main_activity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/olive"
         android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        style="@style/toolbar"
         android:visibility="gone"/>
 
     <androidx.fragment.app.FragmentContainerView

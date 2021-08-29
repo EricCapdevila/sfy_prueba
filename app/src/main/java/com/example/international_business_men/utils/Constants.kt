@@ -16,4 +16,12 @@ object Constants {
     val CAD = "CAD"
     val USD = "USD"
 
+    // fragment tags
+    val PRODUCTS_FRAGMENT = "PRODUCTS_FRAGMENT"
+    val PRODUCT_TRANSACTIONS_FRAGMENT = "PRODUCT_TRANSACTIONS_FRAGMENT"
+    val ERROR_FRAGMENT = "ERROR_FRAGMENT"
+    // fragments params
+    val PRODUCT_ID = "PRODUCT_ID"
+
+
 }

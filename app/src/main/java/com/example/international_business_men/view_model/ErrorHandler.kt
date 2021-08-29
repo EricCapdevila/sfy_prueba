@@ -10,19 +10,19 @@ import retrofit2.Response
 
 class ErrorHandler (private val errorModel : ErrorModel) {
 
-    var errorCode : Int
-    var message : String
+    private var errorCode : String
+    private var message : String
 
     init {
         message = getErrorMessage()
         errorCode = findErrorCode()
     }
 
-    private fun findErrorCode() : Int {
+    private fun findErrorCode() : String {
        errorModel.t?.let{
-           if(it is HttpException){ return it.code() }
+           if(it is HttpException){ return it.code().toString()}
        }
-        return 0
+        return ""
     }
 
     private fun getErrorResponseMessage(response : ResponseBody) : String {
@@ -33,5 +33,10 @@ class ErrorHandler (private val errorModel : ErrorModel) {
         errorModel.t?.message?.let{ return it }
         errorModel.errorResponse?.let{ return getErrorResponseMessage(it) }
         return "Unknown Error"
+    }
+
+    fun getCompleteMessage() : String {
+        if(findErrorCode().isNotEmpty()) return getErrorMessage() + " Code: " + findErrorCode()
+        return getErrorMessage()
     }
 }
