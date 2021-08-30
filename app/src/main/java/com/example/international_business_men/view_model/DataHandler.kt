@@ -2,10 +2,13 @@ package com.example.international_business_men.view_model
 
 import com.example.international_business_men.repository.models.Rate
 import com.example.international_business_men.repository.models.Transaction
-import com.example.international_business_men.utils.Constants.AUD
-import com.example.international_business_men.utils.Constants.CAD
-import com.example.international_business_men.utils.Constants.USD
 import java.math.BigDecimal
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DataHandler(
     private val transactions: List<Transaction>,
@@ -19,20 +22,23 @@ class DataHandler(
         return list
     }
 
-    fun getFormatedAmountListByProduct(sku : String, currency : String ) : MutableList<String>{
+    fun getAmountListByProduct(sku : String, currency : String, formated : Boolean) : MutableList<String>{
         val list = mutableListOf<String>()
         getTransactionsByProduct(sku).forEach {
-            list.add(getAmountFormatted(it.amount, it.currency, currency))
+            list.add(
+                if(formated) addSeparatorsAndSign(currency, getAmountConverted(it.amount, it.currency, currency))
+                else getAmountConverted(it.amount, it.currency, currency)
+            )
         }
         return list;
     }
 
-    fun getSum(numList : List<String>) : String{
+    fun getSum(numList : List<String>, currency: String) : String{
         var result = BigDecimal(0)
         numList.forEach {
             result = result.add(BigDecimal(it))
         }
-        return result.toString()
+        return addSeparatorsAndSign(currency, result.setScale(2,RoundingMode.HALF_EVEN).toString())
     }
 
     private fun getTransactionsByProduct(sku : String) : List<Transaction> {
@@ -43,13 +49,13 @@ class DataHandler(
         return list
     }
 
-    private fun getAmountFormatted(amount : String, from : String, to : String) : String {
+    private fun getAmountConverted(amount : String, from : String, to : String) : String {
         if(from == to) return amount
         var result = BigDecimal(amount)
         getRatesToApply(from, to).forEach {
             result = result.multiply(BigDecimal(it))
         }
-        return result.toString()
+        return result.setScale(2, RoundingMode.HALF_EVEN).toString()
     }
 
     private fun getRatesToApply(from : String, to : String) : MutableList<String> {
@@ -100,6 +106,14 @@ class DataHandler(
             }
         }
         return step
+    }
+
+    private fun addSeparatorsAndSign(currency: String, amount: String) : String {
+        val symbols = DecimalFormatSymbols().apply {
+            decimalSeparator = ','
+            groupingSeparator = '.'
+        }
+        return DecimalFormat("###,###.00", symbols).format(BigDecimal(amount).toDouble()) + " " + Currency.getInstance(currency).symbol
     }
 
 }

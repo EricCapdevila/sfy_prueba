@@ -42,8 +42,6 @@ class MainActivity : AppCompatActivity(), ActivityManager {
 
     }
 
-
-
     private fun setUpViewModel(){
         viewModel = ViewModelProvider(this, Factory(Repository())).get(TransactionsViewModel::class.java)
     }

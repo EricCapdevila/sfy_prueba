@@ -1,6 +1,5 @@
 package com.example.international_business_men.views.fragments
 
-import android.os.Build.ID
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,13 +51,13 @@ class ProductTransactionsFragment : Fragment(){
     private fun setUpRecycler(){
         binding.productTransactionsFragmentRecycler.run{
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = viewModel.dataHandler.value?.getFormatedAmountListByProduct(getProduct(), EUR)?.let { BasicAdapter(null, it) }
+            adapter = viewModel.dataHandler.value?.getAmountListByProduct(getProduct(), EUR, true)?.let { BasicAdapter(null, it) }
         }
     }
 
     private fun setUpSum(){
         binding.productTransactionsFragmentSum.text = viewModel.dataHandler.value?.let{
-            it.getSum(it.getFormatedAmountListByProduct(getProduct(), EUR))
+            it.getSum(it.getAmountListByProduct(getProduct(), EUR, false), EUR)
         }
     }
 
