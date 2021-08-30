@@ -5,14 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".views.activity.MainActivity"
-    android:padding="@dimen/standard_layout_margin">
+    android:padding="@dimen/recycler_item_padding">
 
     <TextView
-        android:id="@+id/recycler_item_standard_item_text"
+        android:id="@+id/recycler_text_button_item_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="@dimen/recycler_item_padding"
         style="@style/regular_text"
-        android:background="@drawable/recycler_item_inner_blue"/>
+        android:background="@drawable/recycler_item_outer_blue"
+        android:focusable="true"
+        android:clickable="true"/>
 
 </LinearLayout>

@@ -1,8 +1,13 @@
 package com.example.international_business_men.views.activity
 
+import android.content.Context
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
+import android.view.WindowInsetsController
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +31,7 @@ class MainActivity : AppCompatActivity(), ActivityManager {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -33,7 +39,10 @@ class MainActivity : AppCompatActivity(), ActivityManager {
         setUpToolbar()
         setUpObservers()
         viewModel.getData()
+
     }
+
+
 
     private fun setUpViewModel(){
         viewModel = ViewModelProvider(this, Factory(Repository())).get(TransactionsViewModel::class.java)
@@ -41,12 +50,8 @@ class MainActivity : AppCompatActivity(), ActivityManager {
 
     private fun setUpToolbar(){
         setSupportActionBar(binding.mainActivityToolbar)
-        //todo binding.mainActivityToolbar.navig sino en layout poner app:navigationIcon="?attr/homeAsUpIndicator"
-        // o sino supportActionBar.setDisplayHomeAsUpEnabled(true)
         binding.mainActivityToolbar.setNavigationOnClickListener {
-            View.OnClickListener {
-                supportFragmentManager.popBackStack()
-            }
+            supportFragmentManager.popBackStack()
         }
     }
 
@@ -69,8 +74,9 @@ class MainActivity : AppCompatActivity(), ActivityManager {
                 binding.activityMainFragmentContainer.id,
                 fragment, tag)
         }
-        //todo if (supportFragmentManager.fragments.isEmpty()) if first should not be added to back
-        if(tag == PRODUCTS_FRAGMENT) transaction.addToBackStack(tag)
+        //if it is not first fragment, you can go back from them
+        if (supportFragmentManager.fragments.size == 1) transaction.addToBackStack(tag)
+       //TODO  if(tag == PRODUCT_TRANSACTIONS_FRAGMENT) transaction.addToBackStack(tag)
         transaction.commit()
     }
 

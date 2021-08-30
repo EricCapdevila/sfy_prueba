@@ -22,7 +22,7 @@ class ProductsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TransactionsViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(TransactionsViewModel::class.java)
     }
 
     override fun onCreateView(

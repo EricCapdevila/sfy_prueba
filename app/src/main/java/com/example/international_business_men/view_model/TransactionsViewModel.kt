@@ -40,6 +40,7 @@ class TransactionsViewModel(val repository: Repository) : ViewModel(){
     private val  ratesObserverLambda : () -> Observer<List<Rate>> = {
         Observer {
             repository.rates.removeObserver(ratesObserver)
+            //todo if data is null call errorHandlerValue
             repository.rates.value = it
             checkAndSetDataHandler()
         }
@@ -48,6 +49,7 @@ class TransactionsViewModel(val repository: Repository) : ViewModel(){
     private val  transactionsObserverLambda : () -> Observer<List<Transaction>> = {
         Observer {
             repository.transactions.removeObserver(transactionsObserver)
+            //todo if data is null call errorHandlerValue
             repository.transactions.value = it
             checkAndSetDataHandler()
         }

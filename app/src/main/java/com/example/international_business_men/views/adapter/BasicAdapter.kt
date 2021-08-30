@@ -5,13 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.international_business_men.R
-import com.example.international_business_men.databinding.RecyclerStandardItemBinding
+import com.example.international_business_men.databinding.RecyclerRegularTextBinding
+import com.example.international_business_men.databinding.RecyclerRegularTextButtonBinding
 
-class BasicAdapter(val onClick : ((id : String) -> Unit)?, val data : List<String>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BasicAdapter(private val onClick : ((id : String) -> Unit)?, private val data : List<String>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return BasicViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_standard_item, parent, false))
+        return if (onClick == null) TextViewHolder(LayoutInflater.from(parent.context)
+            .inflate(R.layout.recycler_regular_text, parent, false))
+        else TextButtonViewHolder(LayoutInflater.from(parent.context)
+            .inflate(R.layout.recycler_regular_text_button, parent, false), onClick)
     }
 
     override fun getItemCount(): Int {
@@ -19,26 +22,28 @@ class BasicAdapter(val onClick : ((id : String) -> Unit)?, val data : List<Strin
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as BasicViewHolder).setUpItem(data[position], onClick)
+        if (holder is TextViewHolder) holder.setUpItem(data[position])
+        if (holder is TextButtonViewHolder) holder.setUpItem(data[position])
     }
 
 }
 
-class BasicViewHolder( itemView: View)
-    : RecyclerView.ViewHolder(itemView) {
-    var binding = RecyclerStandardItemBinding.bind(itemView)
+class TextViewHolder(view: View )
+    : RecyclerView.ViewHolder(view) {
+    var binding =  RecyclerRegularTextBinding.bind(view)
+    fun setUpItem(item : String){
+      binding.recyclerTextItemText.text = item
+    }
+}
 
-    fun setUpItem(item : String, onClick : ((id : String) -> Unit)?){
-        binding.recyclerItemStandardItemText.run{
+class TextButtonViewHolder(view: View, val onClick : (id : String) -> Unit)
+    : RecyclerView.ViewHolder(view) {
+    var binding = RecyclerRegularTextButtonBinding.bind(view)
+    fun setUpItem(item : String){
+        binding.recyclerTextButtonItemText.run{
             text = item
-            if(onClick == null){
-                setTextAppearance(R.style.text_background)
-            } else {
-                setTextAppearance(R.style.text_button_background)
-                setOnClickListener { View.OnClickListener { onClick(item) } }
-            }
+            setOnClickListener { onClick(item) }
         }
-
     }
 }
 
