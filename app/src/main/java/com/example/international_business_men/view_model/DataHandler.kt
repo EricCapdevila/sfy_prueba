@@ -6,7 +6,6 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
-import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -22,13 +21,13 @@ class DataHandler(
         return list
     }
 
-    fun getAmountListByProduct(sku : String, currency : String, formated : Boolean) : MutableList<String>{
+    fun getAmountListByProduct(sku : String, formatted : Boolean, convertTo : String?) : MutableList<String>{
         val list = mutableListOf<String>()
         getTransactionsByProduct(sku).forEach {
-            list.add(
-                if(formated) addSeparatorsAndSign(currency, getAmountConverted(it.amount, it.currency, currency))
-                else getAmountConverted(it.amount, it.currency, currency)
-            )
+            var item = it.amount
+            convertTo?.let{ to -> if (to.isNotEmpty()) item = getAmountConverted(it.amount, it.currency, to)}
+            if(formatted) item = it.amount.prettifyAmount(it.currency)
+            list.add(item)
         }
         return list;
     }
@@ -38,7 +37,7 @@ class DataHandler(
         numList.forEach {
             result = result.add(BigDecimal(it))
         }
-        return addSeparatorsAndSign(currency, result.setScale(2,RoundingMode.HALF_EVEN).toString())
+        return result.setScale(2,RoundingMode.HALF_EVEN).toString().prettifyAmount(currency)
     }
 
     private fun getTransactionsByProduct(sku : String) : List<Transaction> {
@@ -48,6 +47,7 @@ class DataHandler(
         }
         return list
     }
+
 
     private fun getAmountConverted(amount : String, from : String, to : String) : String {
         if(from == to) return amount
@@ -59,7 +59,7 @@ class DataHandler(
     }
 
     private fun getRatesToApply(from : String, to : String) : MutableList<String> {
-        val steps = getConversionSteps(from, to)
+        val steps = getConversionSteps(from, to).asReversed()
         val ratesToApply = mutableListOf<String>()
         var fromRegister : String = from
         steps.forEach { step ->
@@ -108,12 +108,12 @@ class DataHandler(
         return step
     }
 
-    private fun addSeparatorsAndSign(currency: String, amount: String) : String {
+    private fun String.prettifyAmount(currency: String) : String {
         val symbols = DecimalFormatSymbols().apply {
             decimalSeparator = ','
             groupingSeparator = '.'
         }
-        return DecimalFormat("###,###.00", symbols).format(BigDecimal(amount).toDouble()) + " " + Currency.getInstance(currency).symbol
+        return DecimalFormat("###,###.00", symbols).format(BigDecimal(this).toDouble())+
+                " " + Currency.getInstance(currency).symbol
     }
-
 }

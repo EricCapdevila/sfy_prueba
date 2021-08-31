@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.international_business_men.databinding.ActivityMainBinding
 import com.example.international_business_men.repository.Repository
+import com.example.international_business_men.repository.models.Rate
 import com.example.international_business_men.utils.Constants.ERROR_FRAGMENT
 import com.example.international_business_men.utils.Constants.PRODUCTS_FRAGMENT
 import com.example.international_business_men.utils.Constants.PRODUCT_TRANSACTIONS_FRAGMENT

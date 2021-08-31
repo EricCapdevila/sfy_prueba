@@ -51,13 +51,15 @@ class ProductTransactionsFragment : Fragment(){
     private fun setUpRecycler(){
         binding.productTransactionsFragmentRecycler.run{
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = viewModel.dataHandler.value?.getAmountListByProduct(getProduct(), EUR, true)?.let { BasicAdapter(null, it) }
+            adapter = viewModel.dataHandler.value
+                ?.getAmountListByProduct(getProduct(),true, null)
+                ?.let { BasicAdapter(null, it) }
         }
     }
 
     private fun setUpSum(){
         binding.productTransactionsFragmentSum.text = viewModel.dataHandler.value?.let{
-            it.getSum(it.getAmountListByProduct(getProduct(), EUR, false), EUR)
+            it.getSum(it.getAmountListByProduct(getProduct(), false, EUR), EUR)
         }
     }
 

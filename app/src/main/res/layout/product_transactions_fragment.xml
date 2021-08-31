@@ -16,8 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/product_transactions_fragment_sum"
         android:layout_marginStart="@dimen/standard_layout_margin"
-        android:layout_marginEnd="@dimen/standard_layout_margin"
-        android:layout_marginTop="@dimen/big_layout_margin">
+        android:layout_marginEnd="@dimen/standard_layout_margin">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/product_transactions_fragment_recycler"
