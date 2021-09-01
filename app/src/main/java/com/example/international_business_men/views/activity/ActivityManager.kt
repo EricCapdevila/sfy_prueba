@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 
 interface ActivityManager {
 
-    fun goToFragment(fragment : Fragment, tag : String)
-    fun showToolbar(title : String)
+    fun goToFragment(fragment: Fragment, tag: String)
+    fun showToolbar(title: String)
     fun hideToolbar()
 }

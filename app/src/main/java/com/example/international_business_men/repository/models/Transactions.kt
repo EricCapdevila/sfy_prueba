@@ -5,8 +5,8 @@ class Transactions(
 )
 
 
-class Transaction (
-    var sku : String,
-    var amount : String,
-    var currency : String
+class Transaction(
+    var sku: String,
+    var amount: String,
+    var currency: String
 )

@@ -4,21 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.international_business_men.databinding.ErrorFragmentBinding
-import com.example.international_business_men.databinding.ProductsFragmentBinding
-import com.example.international_business_men.view_model.TransactionsViewModel
 
-class ErrorFragment : Fragment(){
+class ErrorFragment : TransactionsBaseFragment() {
 
-    private lateinit var viewModel : TransactionsViewModel
-    private lateinit var binding : ErrorFragmentBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TransactionsViewModel::class.java)
-    }
+    private lateinit var binding: ErrorFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +23,7 @@ class ErrorFragment : Fragment(){
         setUpMessage()
     }
 
-    private fun setUpMessage(){
+    private fun setUpMessage() {
         binding.errorFragmentText.text = viewModel.errorHandler.value?.getCompleteMessage()
     }
 }

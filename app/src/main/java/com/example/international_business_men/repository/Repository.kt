@@ -14,10 +14,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Repository() {
 
-    private lateinit var transactionsServices : TransactionsServices
-    private lateinit var retrofit : Retrofit
+    private lateinit var transactionsServices: TransactionsServices
+    private lateinit var retrofit: Retrofit
 
-    var rates  = MutableLiveData<List<Rate>>()
+    var rates = MutableLiveData<List<Rate>>()
     var transactions = MutableLiveData<List<Transaction>>()
     var error = MutableLiveData<ErrorModel>()
 
@@ -25,7 +25,7 @@ class Repository() {
         setUpRetrofit()
     }
 
-    private fun setUpRetrofit(){
+    private fun setUpRetrofit() {
         retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -37,26 +37,30 @@ class Repository() {
         transactionsServices = retrofit.create(TransactionsServices::class.java)
     }
 
-    fun getRates(){
+    fun getRates() {
         transactionsServices.getRates().enqueue(object : Callback<List<Rate>> {
             override fun onFailure(call: Call<List<Rate>?>, t: Throwable) {
                 error.postValue(ErrorModel(t, null))
             }
+
             override fun onResponse(call: Call<List<Rate>>, response: Response<List<Rate>>) {
-              response.body()?.let{ rates.value = it }
-                  ?: error.postValue(ErrorModel(null, response.errorBody()))
+                response.body()?.let { rates.value = it }
+                    ?: error.postValue(ErrorModel(null, response.errorBody()))
             }
         })
     }
 
-    fun getTransactions(){
+    fun getTransactions() {
         transactionsServices.getTransactions().enqueue(object : Callback<List<Transaction>> {
             override fun onFailure(call: Call<List<Transaction>>, t: Throwable) {
                 error.postValue(ErrorModel(t, null))
             }
 
-            override fun onResponse(call: Call<List<Transaction>>, response: Response<List<Transaction>>) {
-                response.body()?.let { transactions.value = it}
+            override fun onResponse(
+                call: Call<List<Transaction>>,
+                response: Response<List<Transaction>>
+            ) {
+                response.body()?.let { transactions.value = it }
                     ?: error.postValue(ErrorModel(null, response.errorBody()))
             }
         })

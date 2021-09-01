@@ -7,8 +7,8 @@ import java.math.BigDecimal
 object Constants {
 
     //api constants
-    val BASE_URL : String = "http://quiet-stone-2094.herokuapp.com"
-    val SERVICE_LOGS : String = "SERVICE_LOGS"
+    val BASE_URL: String = "http://quiet-stone-2094.herokuapp.com"
+    val SERVICE_LOGS: String = "SERVICE_LOGS"
 
     // currency constants
     val EUR = "EUR"
@@ -20,6 +20,7 @@ object Constants {
     val PRODUCTS_FRAGMENT = "PRODUCTS_FRAGMENT"
     val PRODUCT_TRANSACTIONS_FRAGMENT = "PRODUCT_TRANSACTIONS_FRAGMENT"
     val ERROR_FRAGMENT = "ERROR_FRAGMENT"
+
     // fragments params
     val PRODUCT_ID = "PRODUCT_ID"
 

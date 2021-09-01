@@ -1,28 +1,20 @@
 package com.example.international_business_men.views.activity
 
-import android.content.Context
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
-import android.view.WindowInsetsController
-import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.international_business_men.databinding.ActivityMainBinding
 import com.example.international_business_men.repository.Repository
-import com.example.international_business_men.repository.models.Rate
 import com.example.international_business_men.utils.Constants.ERROR_FRAGMENT
 import com.example.international_business_men.utils.Constants.PRODUCTS_FRAGMENT
-import com.example.international_business_men.utils.Constants.PRODUCT_TRANSACTIONS_FRAGMENT
 import com.example.international_business_men.view_model.DataHandler
 import com.example.international_business_men.view_model.ErrorHandler
 import com.example.international_business_men.view_model.Factory
 import com.example.international_business_men.view_model.TransactionsViewModel
 import com.example.international_business_men.views.fragments.ErrorFragment
-import com.example.international_business_men.views.fragments.ProductTransactionsFragment
 import com.example.international_business_men.views.fragments.ProductsFragment
 
 class MainActivity : AppCompatActivity(), ActivityManager {
