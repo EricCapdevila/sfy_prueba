@@ -1,11 +1,9 @@
 package com.example.international_business_men.view_model
 
 import com.example.international_business_men.repository.models.ErrorModel
-import com.google.gson.JsonElement
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.HttpException
-import retrofit2.Response
 
 
 class ErrorHandler(private val errorModel: ErrorModel) {

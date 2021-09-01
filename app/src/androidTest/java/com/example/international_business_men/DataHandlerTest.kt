@@ -1,6 +1,5 @@
 package com.example.international_business_men
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.international_business_men.repository.models.Rate
 import com.example.international_business_men.repository.models.Transaction
