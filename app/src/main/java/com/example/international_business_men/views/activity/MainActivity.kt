@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity(), ActivityManager {
         }
         //if it is not first fragment, you can go back from them
         if (supportFragmentManager.fragments.size == 1) transaction.addToBackStack(tag)
-       //TODO  if(tag == PRODUCT_TRANSACTIONS_FRAGMENT) transaction.addToBackStack(tag)
         transaction.commit()
     }
 

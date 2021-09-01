@@ -43,7 +43,6 @@ class DataHandlerTest {
 
     @Test
     fun conversionIsCorrect() {
-        //  getAmountListByProduct("x", false, "EUR"))
         val expected = listOf("15.11", "12.28", "10.5") // GETTING 12.92, 12.28, 10.5] Solo multiplica aud a cad
         val result = DataHandler(transactionsAudCadEur, rates)
             .getAmountListByProduct("x", false, "EUR")
