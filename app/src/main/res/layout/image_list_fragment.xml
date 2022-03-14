@@ -15,7 +15,7 @@
         android:layout_marginTop="@dimen/big_layout_margin">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/products_fragment_recycler"
+            android:id="@+id/image_list_fragment_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

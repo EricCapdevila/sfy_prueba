@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">international_business_men</string>
+    <string name="app_name">sfy_prueba</string>
+
+    <string name="onboarding_text">How to use this App: \n \nJust choose a photo on the list to enhance it and see some more details of it.</string>
+    <string name="onboarding_button_text">¡Understood!</string>
+
+    <string name="shared_preference_onboarding_done">Onboarding done</string>
 </resources>

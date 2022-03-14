@@ -1,7 +1,8 @@
-package com.example.international_business_men.view_model
+package com.example.sfy_prueba.view_model
 
-import com.example.international_business_men.repository.models.ErrorModel
+import com.example.sfy_prueba.repository.models.ErrorModel
 import okhttp3.ResponseBody
+import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.HttpException
 
@@ -19,7 +20,8 @@ class ErrorHandler(private val errorModel: ErrorModel) {
     }
 
     private fun getErrorResponseMessage(response: ResponseBody): String {
-        return JSONObject(response.toString()).getString("error")
+        return response.toString()
+        //return JSONObject(response.toString()).getString("content")
     }
 
     private fun getErrorMessage(): String {

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.International_business_men" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="sfy_prueba" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowDisablePreview">true</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/yellow</item>
@@ -14,6 +14,11 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+       <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
     
 
 
@@ -21,8 +26,8 @@
     TEXT
  -->
 
-    <style name="regular_text" parent="TextAppearance.AppCompat.Medium">
-        <item name="color">@color/gray</item>
+    <style name="regular_text" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/light_blue</item>
         <item name="android:textSize">@dimen/regular_text_size</item>
     </style>
 

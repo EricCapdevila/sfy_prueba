@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.international_business_men">
+    package="com.example.sfy_prueba">
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -9,13 +9,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.International_business_men">
-        <activity android:name=".views.activity.MainActivity">
+        android:theme="@style/sfy_prueba">
+        <activity android:name="com.example.sfy_prueba.views.activity.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.sfy_prueba.views.activity.MainActivity" />
+        <activity android:name="com.example.sfy_prueba.views.activity.OnboardingActivity"/>
+
+
     </application>
 
 </manifest>

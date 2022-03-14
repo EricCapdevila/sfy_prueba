@@ -1,12 +1,12 @@
-package com.example.international_business_men.views.fragments
+package com.example.sfy_prueba.views.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.international_business_men.databinding.ErrorFragmentBinding
+import com.example.sfy_prueba.databinding.ErrorFragmentBinding
 
-class ErrorFragment : TransactionsBaseFragment() {
+class ErrorFragment : PhotosBaseFragment() {
 
     private lateinit var binding: ErrorFragmentBinding
 

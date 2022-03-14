@@ -1,14 +1,14 @@
-package com.example.international_business_men.view_model
+package com.example.sfy_prueba.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.international_business_men.repository.Repository
+import com.example.sfy_prueba.repository.Repository
 
 class Factory(
     private val repository: Repository
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return TransactionsViewModel(repository) as T
+        return ImagesViewModel(repository) as T
     }
 }

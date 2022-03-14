@@ -1,9 +1,8 @@
 package com.example.international_business_men
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.international_business_men.repository.models.Rate
+import com.example.sfy_prueba.repository.models.Rate
 import com.example.international_business_men.repository.models.Transaction
-import com.example.international_business_men.view_model.DataHandler
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -34,10 +33,11 @@ class DataHandlerTest {
     private val rates = listOf(
         Rate("CAD", "EUR", "1.17"),
         Rate("EUR", "CAD", "0.85"),
-        Rate("CAD","AUD", "0.81"),
+        Rate("CAD", "AUD", "0.81"),
         Rate("AUD", "CAD", "1.23"),
         Rate("EUR", "USD", "1.04"),
-        Rate("USD", "EUR", "0.96"))
+        Rate("USD", "EUR", "0.96")
+    )
 
 
     @Test
